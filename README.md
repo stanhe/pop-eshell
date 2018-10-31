@@ -1,4 +1,4 @@
-* pop-eshell-mode
+# pop-eshell-mode
 
 I want a terminal work fine on win,and act as some IDE side menu. 
 the same time ,i want run some commands in a full screen window,and i can fast access to it,so i made this.
