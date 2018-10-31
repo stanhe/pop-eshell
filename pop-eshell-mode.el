@@ -15,6 +15,7 @@
 (defvar my-eshell " *BOTTOM-TERMINAL*" "my shell name,use eshell.")
 (defvar my-full-eshell " *FULL-TERMINAL*" "my full shell name,use eshell.")
 
+(defvar pre-buffer nil "previous used buffer.")
 (defvar pre-path nil "previous open directory.")
 (defvar pre-parent-path nil "previous parent directory.")
 
@@ -72,11 +73,15 @@
 	(rename-buffer my-full-eshell)))
     ;;check and handle swap.
     (if (equal my-full-eshell (buffer-name buffer))
-	(switch-to-buffer nil)
+	(progn
+	  (if (setq pre-window (get-buffer-window pre-buffer 'A))
+	      (select-window pre-window)
+	    (switch-to-buffer pre-buffer)))
       (progn
 	(if (setq exist-window (get-buffer-window my-full-eshell 'A))
 	    (select-window exist-window)
 	  (switch-to-buffer shell))
+	(setq pre-buffer buffer)
 	(progn
 	    (when (and pre-parent-path (not (equal pre-parent-path dir)))
 	    (eshell/cd dir)
