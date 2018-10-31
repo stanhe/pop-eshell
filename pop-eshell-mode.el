@@ -73,10 +73,11 @@
     ;;check and handle swap.
     (if (equal my-full-eshell (buffer-name buffer))
 	(switch-to-buffer nil)
-      (if (setq exist-window (get-buffer-window my-full-eshell 'A))
-	  (select-window exist-window)
+      (progn
+	(if (setq exist-window (get-buffer-window my-full-eshell 'A))
+	    (select-window exist-window)
+	  (switch-to-buffer shell))
 	(progn
-	    (switch-to-buffer shell)
 	    (when (and pre-parent-path (not (equal pre-parent-path dir)))
 	    (eshell/cd dir)
 	    (eshell-send-input)))))
