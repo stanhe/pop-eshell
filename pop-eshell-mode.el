@@ -48,28 +48,32 @@
     (unless tmp-eshell
       (setq tmp-eshell (eshell 100))
       (with-current-buffer tmp-eshell
+	(eshell/clear-scrollback)
 	(rename-buffer my-eshell)
 	(switch-to-buffer pos-buffer)))
     (setq window
 	  (select-window
 	   (display-buffer-in-side-window tmp-eshell '((side . bottom))) t))
     (set-window-dedicated-p window t)
-    (when (and pre-path (not (equal pre-path dir)))
+    (when (not (equal pre-path dir))
       (eshell/cd dir)
-      (eshell-send-input))
-    (setq pre-path dir)))
+      (eshell-send-input)
+      (setq pre-path dir))))
 
 ;;;###autoload
-(defun fast-eshell-pop ()
+(defun fast-eshell-pop (&optional pre-arg)
   "fast jump to eshll,it's the same as M-x :eshell "
-  (interactive)
+  (interactive "p")
   (let* ((buffer (current-buffer))
 	 (shell (get-buffer my-full-eshell))
-	 (dir (get-project-root-directory buffer)))
+	 (dir (if current-prefix-arg
+		  (get-current-directory buffer)
+		(get-project-root-directory buffer))))
     ;;check if my-full-eshell exist,if not create one.
     (unless shell
       (setq shell (eshell 101))
       (with-current-buffer shell
+	(eshell/clear-scrollback)
 	(rename-buffer my-full-eshell)))
     ;;check and handle swap.
     (if (equal my-full-eshell (buffer-name buffer))
@@ -83,10 +87,10 @@
 	  (switch-to-buffer shell))
 	(setq pre-buffer buffer)
 	(progn
-	    (when (and pre-parent-path (not (equal pre-parent-path dir)))
+	  (when (not (equal pre-parent-path dir))
 	    (eshell/cd dir)
-	    (eshell-send-input)))))
-    (setq pre-parent-path dir)
+	    (eshell-send-input)
+	    (setq pre-parent-path dir)))))
     (bury-buffer shell)))
 
 ;; keymaps
