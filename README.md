@@ -16,6 +16,7 @@ git clone https://github.com/stanhe/pop-eshell.git
 ```
 (add-to-list 'load-path "~/.emacs.d/pop-eshell")
 (require 'pop-eshell-mode)
+(setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
 (pop-eshell-mode 1)
 ```
 
@@ -31,4 +32,4 @@ git clone https://github.com/stanhe/pop-eshell.git
 
 |bottom-side |full-screen |
 |:------:|:------:|
-|<img src="./image/bottom-terminal.gif" width="400">|<img src="./image/full-terminal.gif" width="400">|
+|<img src="./screenshot/bottom-terminal.gif" width="400">|<img src="./screenshot/full-terminal.gif" width="400">|

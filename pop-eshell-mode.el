@@ -15,6 +15,8 @@
 (defvar my-eshell " *BOTTOM-TERMINAL*" "my shell name,use eshell.")
 (defvar my-full-eshell " *FULL-TERMINAL*" "my full shell name,use eshell.")
 
+(defvar pop-find-parent-directory nil "find the files in parent directory,if find,return the path as parent directory,else try the next")
+
 (defvar pre-buffer nil "previous used buffer.")
 (defvar pre-path nil "previous open directory.")
 (defvar pre-parent-path nil "previous parent directory.")
@@ -33,9 +35,9 @@
 
 (defun get-project-root-directory (buffer)
   "find current project root,for git or gradle."
-  (with-current-buffer buffer
-    (or (get-parent-dir "gradlew")
-	(get-parent-dir ".git")
+    (with-current-buffer buffer
+      (if (setq parent (cl-some #'get-parent-dir pop-find-parent-directory))
+	  parent
 	(get-current-directory))))
 
 (defun eshell-pop-bottom()
