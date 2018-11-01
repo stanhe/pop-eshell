@@ -30,6 +30,12 @@ git clone https://github.com/stanhe/pop-eshell.git
 
 ## Screenshots 
 
+* single window
+
 |bottom-side |full-screen |
 |:------:|:------:|
 |<img src="./screenshot/bottom-terminal.gif" width="400">|<img src="./screenshot/full-terminal.gif" width="400">|
+
+* multi windows
+
+ <img src="./screenshot/terminal.gif">
