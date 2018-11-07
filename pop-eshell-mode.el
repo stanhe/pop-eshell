@@ -14,6 +14,10 @@
 
 ;;;; Change log:
 
+;; 2018/11/7
+;;     * fix multi windows full screen eshell `fast-eshell-pop' weird.
+;;     * defconst terminal name.
+;;
 ;; 2018/11/5
 ;;     * Improve docs.
 ;;
@@ -30,8 +34,8 @@
 
 
 ;;define var
-(defvar my-eshell " *BOTTOM-TERMINAL*" "my shell name,use eshell.")
-(defvar my-full-eshell " *FULL-TERMINAL*" "my full shell name,use eshell.")
+(defconst my-eshell " *BOTTOM-TERMINAL*" "my shell name,use eshell.")
+(defconst my-full-eshell " *FULL-TERMINAL*" "my full shell name,use eshell.")
 
 (defvar pop-find-parent-directory nil "find the files in parent directory,if find,return the path as parent directory,else try the next")
 
@@ -109,7 +113,8 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
 	(if (setq exist-window (get-buffer-window my-full-eshell 'A))
 	    (select-window exist-window)
 	  (switch-to-buffer shell))
-	(setq pre-buffer buffer)
+	(unless (equal my-eshell (buffer-name buffer))
+	    (setq pre-buffer buffer))
 	(when (not (equal pre-parent-path dir))
 	  (eshell/cd dir)
 	  (eshell-send-input)
