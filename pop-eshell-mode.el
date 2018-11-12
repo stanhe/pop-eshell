@@ -87,11 +87,11 @@ this function will check the parent directory for special file in order. "
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; full window ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;###autoload
-(defun fast-eshell-pop (&optional pre-arg)
+(defun fast-eshell-pop ()
   "fast jump between current buffer and full screen eshell buffer,
 with any pre-arg locate to current buffer directory,
 otherwise to the parent directory,set by `pop-find-parent-directory' "
-  (interactive "p")
+  (interactive)
   (let* ((buffer (current-buffer))
 	 (shell (get-buffer my-full-eshell))
 	 (dir (if current-prefix-arg
