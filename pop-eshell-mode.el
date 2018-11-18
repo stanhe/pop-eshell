@@ -1,19 +1,29 @@
-;; this is my custom eshell-mode
-;; main for show eshell at bottom for windows
-;; author: stanhe
-;; date: 2018-10-27
+;;; pop-eshell-mode.el --- Bottom side eshell window and Full terminal
 
-;;;; Usage:
+;; Copyright (C) 2018 stanhe
+
+;; Author: stanhe <hshl4314@gmail.com>
+;; Version: 1.0
+;; Keywords: pop-eshell, terminal
+;; URL: https://github.com/stanhe/pop-eshell
+
+;;; Commentary:
+
+;; this package provides a minor mode to handle bottom side eshell window,and a full screen eshell terminal. To activate it ,just type `(pop-eshell-mode)'
+
+;;; Usage:
 
 ;; just bind fast-eshell-pop and eshell-pop-toggle to your key-bindings
-;;
-;; eshell-pop-toggle:
+;; `eshell-pop-toggle':
 ;;      pop-eshell as side window,much like some IDE.
-;; fast-eshell-pop:
+;; `fast-eshell-pop':
 ;;      open eshell with project mode,open git or gradle project.
 
-;;;; Change log:
+;;; Change log:
 
+;; 2018/11/18
+;;     * refactor docs.
+;;
 ;; 2018/11/7
 ;;     * fix multi windows full screen eshell `fast-eshell-pop' weird.
 ;;     * defconst terminal name.
@@ -62,10 +72,10 @@ this function will check the parent directory for special file in order. "
       (if (setq parent (cl-some #'get-parent-dir pop-find-parent-directory))
 	  parent
 	(get-current-directory))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; side window bottom ;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun eshell-pop-bottom()
   "pop eshell at bottom"
-  (interactive)
   (let ((pos-buffer (current-buffer))
 	(tmp-eshell (get-buffer my-eshell))
 	(dir (get-current-directory)))
@@ -141,4 +151,5 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
   :global t)
 
 (provide 'pop-eshell-mode)
-;;; my pop-eshell-mode end.
+
+;;; pop-eshell-mode end.
