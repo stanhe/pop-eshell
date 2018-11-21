@@ -115,11 +115,9 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
 	(rename-buffer my-full-eshell)))
     ;;check and handle swap.
     (if (equal my-full-eshell (buffer-name buffer))
-	(progn
 	  (if (setq pre-window (get-buffer-window pre-buffer 'A))
 	      (select-window pre-window)
-	    (switch-to-buffer pre-buffer)))
-      (progn
+	    (switch-to-buffer pre-buffer))
 	(if (setq exist-window (get-buffer-window my-full-eshell 'A))
 	    (select-window exist-window)
 	  (switch-to-buffer shell))
@@ -128,7 +126,7 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
 	(when (not (equal pre-parent-path dir))
 	  (eshell/cd dir)
 	  (eshell-send-input)
-	  (setq pre-parent-path dir))))))
+	  (setq pre-parent-path dir)))))
 
 ;; keymaps
 (defvar pop-eshell-mode-map
