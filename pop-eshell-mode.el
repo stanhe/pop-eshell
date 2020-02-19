@@ -112,7 +112,8 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
       (setq shell (eshell 101))
       (with-current-buffer shell
 	(eshell/clear-scrollback)
-	(rename-buffer my-full-eshell)))
+	(rename-buffer my-full-eshell)
+	(eshell-send-input)))
     ;;check and handle swap.
     (if (equal my-full-eshell (buffer-name buffer))
 	  (if (setq pre-window (get-buffer-window pre-buffer 'A))
